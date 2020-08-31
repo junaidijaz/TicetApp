@@ -1,0 +1,38 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="headingLarge" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+    <style name="toolbarText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+
+    </style>
+
+    <style name="EditTextMain" parent="TextAppearance.AppCompat">
+        <item name="android:padding">@dimen/_8sdp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="maxLines">1</item>
+
+    </style>
+
+    <style name="horizontalDivider" parent="AppTheme">
+        <item name="android:layout_height">@dimen/_1sdp</item>
+        <item name="android:layout_marginTop">@dimen/_2sdp</item>
+        <item name="android:background">@color/colorDivider</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+</resources>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/marginHigh"
+        android:paddingEnd="@dimen/marginHigh">
+
+
+        <EditText
+            android:id="@+id/etEnterSubject"
+            style="@style/EditTextMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHigh"
+            android:background="@null"
+            android:hint="Enter Ticket Subject"
+            android:inputType="text"
+            tools:ignore="Autofill,HardcodedText" />
+
+        <View
+            android:id="@+id/dvdSubject"
+            style="@style/horizontalDivider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHigh">
+
+            <TextView
+                android:id="@+id/etDepartment"
+                style="@style/EditTextMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Department"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Autofill,HardcodedText" />
+
+            <ProgressBar
+                android:id="@+id/pbDepartment"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/etDepartment"
+                app:layout_constraintEnd_toEndOf="@+id/etDepartment"
+                app:layout_constraintTop_toTopOf="@+id/etDepartment" />
+
+            <TextView
+                android:id="@+id/tvRetryDep"
+                style="@style/headingLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="Retry"
+                android:textAllCaps="false"
+                android:textSize="@dimen/text_size_small_medium"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/etDepartment"
+                app:layout_constraintEnd_toEndOf="@+id/etDepartment"
+                app:layout_constraintTop_toTopOf="@+id/etDepartment" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <View
+            android:id="@+id/dvdDept"
+            style="@style/horizontalDivider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHigh">
+
+            <TextView
+                android:id="@+id/etPriority"
+                style="@style/EditTextMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Priority"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Autofill,HardcodedText" />
+
+            <ProgressBar
+                android:id="@+id/pbPriorities"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/etPriority"
+                app:layout_constraintEnd_toEndOf="@+id/etPriority"
+                app:layout_constraintTop_toTopOf="@+id/etPriority" />
+
+            <TextView
+                android:id="@+id/tvRetryPriority"
+                style="@style/headingLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="Retry"
+                android:textAllCaps="false"
+                android:textSize="@dimen/text_size_small_medium"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/etPriority"
+                app:layout_constraintEnd_toEndOf="@+id/etPriority"
+                app:layout_constraintTop_toTopOf="@+id/etPriority" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/dvdPriority"
+            style="@style/horizontalDivider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/clContactId"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/marginHigh">
+
+            <TextView
+                android:id="@+id/etCotactId"
+                style="@style/EditTextMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Contact ID "
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Autofill,HardcodedText" />
+
+            <ProgressBar
+                android:id="@+id/pbContactId"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/etCotactId"
+                app:layout_constraintEnd_toEndOf="@+id/etCotactId"
+                app:layout_constraintTop_toTopOf="@+id/etCotactId" />
+
+            <TextView
+                android:id="@+id/tvRetryContactId"
+                style="@style/headingLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="Retry"
+                android:textAllCaps="false"
+                android:textSize="@dimen/text_size_small_medium"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/etCotactId"
+                app:layout_constraintEnd_toEndOf="@+id/etCotactId"
+                app:layout_constraintTop_toTopOf="@+id/etCotactId" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <View
+            android:id="@+id/dvdContactId"
+            style="@style/horizontalDivider" />
+
+        <EditText
+            android:id="@+id/etMessage"
+            style="@style/EditTextMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHigh"
+            android:background="@null"
+            android:hint="Enter Message"
+            android:inputType="text"
+            tools:ignore="Autofill,HardcodedText" />
+
+        <View
+            android:id="@+id/dvdMessage"
+            style="@style/horizontalDivider" />
+
+        <Button
+            android:id="@+id/btnOpenTicket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/marginMedium"
+            android:background="@drawable/rounded_bg"
+            android:text="Open Ticket"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</ScrollView>

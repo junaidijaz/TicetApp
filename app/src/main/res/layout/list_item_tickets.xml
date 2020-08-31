@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/marginMedium"
+    android:id="@+id/bg"
+    android:paddingStart="@dimen/marginMedium"
+    android:paddingEnd="@dimen/marginMedium"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/tvTicketMsg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Testi"
+        android:layout_marginEnd="@dimen/marginMedium"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_small_medium"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriorityTittle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tvTicketId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_small"
+        android:text="asdas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:layout_marginTop="@dimen/_2sdp"
+        app:layout_constraintStart_toStartOf="@+id/tvTicketMsg"
+        app:layout_constraintTop_toBottomOf="@+id/tvTicketMsg"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tvPriorityTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginHigh"
+        android:text="Priority"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toStartOf="@+id/btnTicketStatus"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPriority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginHigh"
+        android:text="adsa"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toStartOf="@+id/btnTicketStatus"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriorityTittle" />
+
+    <Button
+        android:id="@+id/btnTicketStatus"
+        android:layout_width="@dimen/_54sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:background="@drawable/rounded_corner_bg_red"
+        android:text="Open"
+        android:clickable="false"
+        android:enabled="false"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <View
+        style="@style/horizontalDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
