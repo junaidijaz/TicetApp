@@ -10,6 +10,7 @@ import android.widget.Toast
 import au.net.tech.app.*
 import au.net.tech.app.baseclasses.BaseFragment
 import au.net.tech.app.models.Company
+import au.net.tech.app.models.ContactDto
 import au.net.tech.app.models.DepartmentDto
 import au.net.tech.app.models.PrioritiesDto
 import au.net.tech.app.networking.Networking
@@ -157,12 +158,12 @@ class AddTicketFragment : BaseFragment() {
         }
     }
 
-    private fun setContactIds(contactIds: ArrayList<Company>) {
+    private fun setContactIds(contactIds: ArrayList<ContactDto>) {
 
         contactIdPickerView = MyOptionsPickerView(context)
         val items = ArrayList<String>()
         contactIds.forEach {
-            items.add(it.company ?: "")
+            items.add("${it.name}   ${it.subtext}")
         }
 
         contactIdPickerView?.setPicker(items)
@@ -170,8 +171,8 @@ class AddTicketFragment : BaseFragment() {
         contactIdPickerView?.setCyclic(false)
         contactIdPickerView?.setSelectOptions(0)
         contactIdPickerView?.setOnoptionsSelectListener { options1, option2, options3 ->
-            selectedContactId = contactIds[options1].userid ?: ""
-            mView.etCotactId.text = contactIds[options1].company
+            selectedContactId = contactIds[options1].id ?: ""
+            mView.etCotactId.text = "${contactIds[options1].name}   ${contactIds[options1].subtext}"
         }
     }
 
@@ -282,7 +283,7 @@ class AddTicketFragment : BaseFragment() {
             mView.pbContactId.visibility = View.VISIBLE
             mView.tvRetryContactId.visibility = View.GONE
 
-            subscribers.add(Networking.create().getCompanies()
+            subscribers.add(Networking.create().searchContact()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

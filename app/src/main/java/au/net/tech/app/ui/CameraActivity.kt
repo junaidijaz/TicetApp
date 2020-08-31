@@ -26,6 +26,7 @@ import au.net.tech.app.Utils
 import au.net.tech.app.baseclasses.BaseActivity
 import au.net.tech.app.getTrimmedText
 import au.net.tech.app.models.Company
+import au.net.tech.app.models.ContactDto
 import au.net.tech.app.networking.Networking
 import com.bigkoo.pickerview.MyOptionsPickerView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,7 +34,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import kotlinx.android.synthetic.main.activity_camera.*
-import kotlinx.android.synthetic.main.fragment_add_ticket.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -303,7 +303,7 @@ class CameraActivity : BaseActivity() {
             pbContactId.visibility = View.VISIBLE
             btnRetryContact.visibility = View.GONE
 
-            subscribers.add(Networking.create().getCompanies()
+            subscribers.add(Networking.create().searchContact()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -336,12 +336,12 @@ class CameraActivity : BaseActivity() {
 
     }
 
-    private fun setContactIds(contactIds: ArrayList<Company>) {
+    private fun setContactIds(contactIds: ArrayList<ContactDto>) {
 
         contactIdPickerView = MyOptionsPickerView(this)
         val items = ArrayList<String>()
         contactIds.forEach {
-            items.add(it.company ?: "")
+            items.add("${it.name}   ${it.subtext}")
         }
 
         contactIdPickerView?.setPicker(items)
@@ -349,8 +349,7 @@ class CameraActivity : BaseActivity() {
         contactIdPickerView?.setCyclic(false)
         contactIdPickerView?.setSelectOptions(0)
         contactIdPickerView?.setOnoptionsSelectListener { options1, option2, options3 ->
-            selectedContactId = contactIds[options1].userid ?: ""
-
+            selectedContactId = contactIds[options1].id ?: ""
             openTicket()
 
         }

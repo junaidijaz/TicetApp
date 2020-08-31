@@ -55,8 +55,13 @@ open class BaseFragment : Fragment() {
     fun logoutUser() {
         AppSharedPrefs.saveUser(null)
         AppSharedPrefs.setRememberMe(false)
-        startActivity(Intent(requireContext(), LoginActivity::class.java))
-        requireActivity().finish()
+        try {
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+
+        }catch (ex : Exception){
+
+        }
 
     }
 

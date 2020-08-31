@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.ChatActivity"/>
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".ui.ChatActivity" />
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation"
