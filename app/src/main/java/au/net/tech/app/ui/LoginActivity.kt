@@ -11,11 +11,12 @@ import au.net.tech.app.getTrimmedText
 import au.net.tech.app.models.User
 import au.net.tech.app.networking.Networking
 import au.net.tech.app.setCustomAnimation
-
+import com.mesibo.api.Mesibo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 class LoginActivity : BaseActivity() {
 
@@ -29,6 +30,7 @@ class LoginActivity : BaseActivity() {
 
         checkIsUserLoggedIn()
         applyListeners()
+
     }
 
 
@@ -41,6 +43,7 @@ class LoginActivity : BaseActivity() {
     private fun openMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+
     }
 
     private fun applyListeners() {
@@ -63,19 +66,19 @@ class LoginActivity : BaseActivity() {
         showWaitingDialog()
         subscribers.add(
             Networking.create()
-            .loginUser(email = etEmail.getTrimmedText(), password = etPass.getTrimmedText())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    dismissWaitingDialog()
-                    renderResult(result)
-                },
-                { error ->
-                    onError(error.localizedMessage ?: "")
-                    dismissWaitingDialog()
-                }
-            )
+                .loginUser(email = etEmail.getTrimmedText(), password = etPass.getTrimmedText())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { result ->
+                        dismissWaitingDialog()
+                        renderResult(result)
+                    },
+                    { error ->
+                        onError(error.localizedMessage ?: "")
+                        dismissWaitingDialog()
+                    }
+                )
         )
     }
 

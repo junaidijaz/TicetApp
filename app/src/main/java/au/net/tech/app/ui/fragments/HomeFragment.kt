@@ -146,7 +146,7 @@ class HomeFragment : BaseFragment() {
 
 
     private fun loginInMesibo() {
-        if (AppSharedPrefs.getUser()?.mesibo_token != null && AppSharedPrefs.getUser()?.mesibo_token != null) {
+        if (AppSharedPrefs.getUser()?.mesibo_token != null && AppSharedPrefs.getUser()?.mesibo_token != "") {
             setTokenToMesibo(AppSharedPrefs.getUser()?.mesibo_token!!)
             Log.d(TAG, "loginInMesibo: ${AppSharedPrefs.getUser()?.mesibo_id}")
         }
@@ -167,6 +167,7 @@ class HomeFragment : BaseFragment() {
             }
             Log.d(TAG, "setTokenToMesibo: ${AppSharedPrefs.getFcmToken()}")
             Mesibo.setPushToken(AppSharedPrefs.getFcmToken())
+
 
         }
 

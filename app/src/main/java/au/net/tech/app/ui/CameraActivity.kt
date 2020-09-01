@@ -25,10 +25,12 @@ import au.net.tech.app.R
 import au.net.tech.app.Utils
 import au.net.tech.app.baseclasses.BaseActivity
 import au.net.tech.app.getTrimmedText
-import au.net.tech.app.models.Company
 import au.net.tech.app.models.ContactDto
 import au.net.tech.app.networking.Networking
 import com.bigkoo.pickerview.MyOptionsPickerView
+import com.mesibo.api.Mesibo
+import com.mesibo.api.Mesibo.MessageParams
+import com.mesibo.mediapicker.MediaPicker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -45,7 +47,7 @@ import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
 
 
-class CameraActivity : BaseActivity() {
+class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPicker.ImageEditorListener{
     private var subscribers = CompositeDisposable()
     private lateinit var mPhotoEditor: PhotoEditor
 
@@ -109,20 +111,24 @@ class CameraActivity : BaseActivity() {
             pickImageFromGallery()
         }
         btnOpenTicket.setOnClickListener {
+            selectedImage = loadBitmapFromView(ivEditSS)
+            sendFile(101887, "image with url",selectedImage!!)
 
-            if (Utils.isStaff()) {
-                if (contactIdPickerView == null) {
-                    Toast.makeText(this, "Please select customer first", Toast.LENGTH_SHORT)
-                        .show()
-                    getCompanies()
-                    return@setOnClickListener
-                }
+//            sendFile()
 
-                contactIdPickerView?.show()
-
-            } else {
-                openTicket()
-            }
+//            if (Utils.isStaff()) {
+//                if (contactIdPickerView == null) {
+//                    Toast.makeText(this, "Please select customer first", Toast.LENGTH_SHORT)
+//                        .show()
+//                    getCompanies()
+//                    return@setOnClickListener
+//                }
+//
+//                contactIdPickerView?.show()
+//
+//            } else {
+//                openTicket()
+//            }
         }
         btnRetryContact.setOnClickListener {
             getCompanies()
@@ -289,7 +295,11 @@ class CameraActivity : BaseActivity() {
                     },
                     { error ->
                         dismissWaitingDialog()
-                        Toast.makeText(this, "You don't have permissions to open ticket", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this,
+                            "You don't have permissions to open ticket",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 )
@@ -355,6 +365,45 @@ class CameraActivity : BaseActivity() {
         }
     }
 
+    private fun sendFile(gid: Long, caption: String, bmp: Bitmap) {
+
+        val mId: Long = getMessageId()
+        val type = Mesibo.FileInfo.TYPE_IMAGE
+
+
+        val mParameter = MessageParams(gid, Mesibo.FLAG_DEFAULT)
+        //TBD, if we send two people same file with differetnt crops, it may send the same.
+        val file: Mesibo.FileInfo = Mesibo.getFileInstance(
+            mParameter,
+            mId,
+            Mesibo.FileInfo.MODE_UPLOAD,
+            type,
+            Mesibo.FileInfo.SOURCE_MESSAGE,
+             null,
+            "https://www.w3schools.com/w3css/img_lights.jpg",
+            this
+        )
+        //File file1 = new File(filePath);
+        file.message = caption
+        file.image = null
+        file.title = null
+        file.userInteraction = true
+
+
+        val sendFileresult: Int = Mesibo.sendFile(mParameter, mId, file)
+
+        if(Mesibo.RESULT_OK != sendFileresult) {
+            Log.d(TAG, "sendFile: failed")
+        }else{
+            Log.d(TAG, "sendFile: success")
+        }
+
+    }
+
+
+    private fun getMessageId(): Long {
+        return Mesibo.random()
+    }
 
     private fun isFormValid(): Boolean {
 
@@ -467,6 +516,15 @@ class CameraActivity : BaseActivity() {
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+    }
+
+    override fun Mesibo_onFileTransferProgress(p0: Mesibo.FileInfo?): Boolean {
+        Log.d(TAG, "Mesibo_onFileTransferProgress: $p0")
+         return true
+    }
+
+    override fun onImageEdit(p0: Int, p1: String?, p2: String?, p3: Bitmap?, p4: Int) {
+
     }
 
 }

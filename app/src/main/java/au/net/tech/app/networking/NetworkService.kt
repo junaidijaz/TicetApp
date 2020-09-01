@@ -72,14 +72,36 @@ interface NetworkService {
     ): Single<TicketSuccessDto>
 
 
+//    @FormUrlEncoded
+//    @POST("authentication/get_relation_data")
+//    fun searchContact(
+//        @Header("authtoken") authToken : String = "api_token_name=c464334cb8e11686f753ce85d51ec00c&api_token_key=b456e9c39c539002544b5fadf55c5f04&private_key=4f5d26c4b86f0d09088822eb7f4e1079&type=Staff&user_id=16&company_id=",
+//        @Field("type") type: String = "contact",
+//        @Field("q") q: String = "rahat@gmail.com",
+//        @Field("tickets_contacts") tickets_contacts: String = "true"
+//    ): Single<ArrayList<ContactDto>>
+
+
     @FormUrlEncoded
     @POST("authentication/get_relation_data")
     fun searchContact(
         @Header("authtoken") authToken: String = AppSharedPrefs.getUser()?.authtoken ?: "",
         @Field("type") type: String = "contact",
-        @Field("q") q: String = "a"
+        @Field("q") q: String = "rahat",
+        @Field("tickets_contacts") tickets_contacts: String = "true"
 
     ): Single<ArrayList<ContactDto>>
+
+
+//
+//    @FormUrlEncoded
+//    @POST("authentication/get_relation_data")
+//    fun searchContact(
+//        @Header("authtoken") authToken: String = AppSharedPrefs.getUser()?.authtoken ?: "",
+//        @Field("type") type: String = "contact",
+//        @Field("q") q: String = "a",
+//        @Field("tickets_contacts") tickets_contacts: String = "true"
+//    ): Single<ArrayList<ContactDto>>
 
 
 }

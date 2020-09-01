@@ -145,7 +145,8 @@ class MessagingUiFragment : MesiboMessagingFragment(), MesiboRecycleViewHolder.L
             }
 
             MesiboRecycleViewHolder.TYPE_DATETIME -> {
-
+                val dateViewHolder = mesiboRecycleViewHolder as DateTimeViewHolder
+                val h: MesiboRecycleViewHolder
 
 
             }
