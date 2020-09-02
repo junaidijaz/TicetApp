@@ -78,6 +78,7 @@ class MessagingUiFragment : MesiboMessagingFragment(), MesiboRecycleViewHolder.L
         mesiboMessage: MesiboMessage?
     ) {
 
+
         when (viewType) {
             MesiboRecycleViewHolder.TYPE_INCOMING -> {
                 val incomingView = mesiboRecycleViewHolder as IncomingMessgaeViewHolder

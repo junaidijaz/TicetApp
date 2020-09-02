@@ -12,6 +12,7 @@ import au.net.tech.app.models.User
 import au.net.tech.app.networking.Networking
 import au.net.tech.app.setCustomAnimation
 import com.mesibo.api.Mesibo
+import com.mesibo.mediapicker.MediaPicker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -55,6 +56,9 @@ class LoginActivity : BaseActivity() {
         etPass.setCustomAnimation(dvdPass)
 
         btnLogin.setOnClickListener {
+
+
+
             if (isFormValid()) {
                 loginUser()
             }

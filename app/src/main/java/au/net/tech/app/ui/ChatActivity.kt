@@ -11,6 +11,7 @@ import au.net.tech.app.baseclasses.BaseActivity
 import au.net.tech.app.networking.mesibo.MesiboNetworking
 import au.net.tech.app.ui.mesibo.MessagingUiFragment
 import com.mesibo.api.Mesibo
+import com.mesibo.mediapicker.MediaPicker
 import com.mesibo.messaging.MesiboMessagingFragment
 import com.mesibo.messaging.MesiboUI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +20,13 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_chat_activty.*
 
 
-class ChatActivity : BaseActivity(), MesiboMessagingFragment.FragmentListener , Mesibo.MessageListener {
+class ChatActivity : BaseActivity(),
+    MesiboMessagingFragment.FragmentListener ,
+    Mesibo.MessageListener ,
+    Mesibo.FileTransferListener,
+    Mesibo.FileTransferHandler,
+    MediaPicker.ImageEditorListener
+{
 
     private var subscribers = CompositeDisposable()
 
@@ -32,6 +39,8 @@ class ChatActivity : BaseActivity(), MesiboMessagingFragment.FragmentListener , 
         val tittle = (intent.getStringExtra("tittle"))!!
 
         gId = "101887"
+
+
 
         icBack.setOnClickListener {
             onBackPressed()
@@ -154,7 +163,7 @@ class ChatActivity : BaseActivity(), MesiboMessagingFragment.FragmentListener , 
     }
 
     override fun Mesibo_onActivity(p0: Mesibo.MessageParams?, p1: Int) {
-
+        Log.d(TAG, "Mesibo_onActivity: ")
     }
 
     override fun Mesibo_onLocation(p0: Mesibo.MessageParams?, p1: Mesibo.Location?) {
@@ -162,7 +171,24 @@ class ChatActivity : BaseActivity(), MesiboMessagingFragment.FragmentListener , 
     }
 
     override fun Mesibo_onFile(p0: Mesibo.MessageParams?, p1: Mesibo.FileInfo?) {
+        Log.d(TAG, "Mesibo_onFile: ")
 
+    }
+
+    override fun Mesibo_onFileTransferProgress(p0: Mesibo.FileInfo?): Boolean {
+         return true
+    }
+
+    override fun onImageEdit(p0: Int, p1: String?, p2: String?, p3: Bitmap?, p4: Int) {
+        Log.d(TAG, "onImageEdit: ")
+    }
+
+    override fun Mesibo_onStartFileTransfer(p0: Mesibo.FileInfo?): Boolean {
+       return true
+    }
+
+    override fun Mesibo_onStopFileTransfer(p0: Mesibo.FileInfo?): Boolean {
+     return true
     }
 
 

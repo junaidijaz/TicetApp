@@ -30,7 +30,6 @@ import au.net.tech.app.networking.Networking
 import com.bigkoo.pickerview.MyOptionsPickerView
 import com.mesibo.api.Mesibo
 import com.mesibo.api.Mesibo.MessageParams
-import com.mesibo.mediapicker.MediaPicker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -47,7 +46,7 @@ import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
 
 
-class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPicker.ImageEditorListener{
+class CameraActivity : BaseActivity(), Mesibo.FileTransferListener, Mesibo.FileTransferHandler {
     private var subscribers = CompositeDisposable()
     private lateinit var mPhotoEditor: PhotoEditor
 
@@ -56,6 +55,7 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
     private var selectedContactId: String = ""
+    private var selectedImagePath: String = ""
 
     private var selectedImage: Bitmap? = null
 
@@ -73,6 +73,8 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
         }
+
+        Mesibo.addListener(this)
 
 
         outputDirectory = getOutputDirectory()
@@ -112,7 +114,7 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
         }
         btnOpenTicket.setOnClickListener {
             selectedImage = loadBitmapFromView(ivEditSS)
-            sendFile(101887, "image with url",selectedImage!!)
+            sendFile(101887, "image with url", selectedImage!!)
 
 //            sendFile()
 
@@ -202,6 +204,9 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
                     pbImage.visibility = View.GONE
                     val myBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
 
+                    Log.d(TAG, "onImageSaved: ${photoFile.absolutePath}")
+                    Log.d(TAG, "onImageSaved: ${photoFile.path}")
+                    selectedImagePath = photoFile.absolutePath
 
                     val matrix = Matrix()
                     matrix.postRotate(90f)
@@ -367,6 +372,7 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
 
     private fun sendFile(gid: Long, caption: String, bmp: Bitmap) {
 
+
         val mId: Long = getMessageId()
         val type = Mesibo.FileInfo.TYPE_IMAGE
 
@@ -379,8 +385,8 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
             Mesibo.FileInfo.MODE_UPLOAD,
             type,
             Mesibo.FileInfo.SOURCE_MESSAGE,
-             null,
-            "https://www.w3schools.com/w3css/img_lights.jpg",
+            selectedImagePath,
+            "https://appimages.mesibo.com/${selectedImagePath}",
             this
         )
         //File file1 = new File(filePath);
@@ -392,9 +398,9 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
 
         val sendFileresult: Int = Mesibo.sendFile(mParameter, mId, file)
 
-        if(Mesibo.RESULT_OK != sendFileresult) {
+        if (Mesibo.RESULT_OK != sendFileresult) {
             Log.d(TAG, "sendFile: failed")
-        }else{
+        } else {
             Log.d(TAG, "sendFile: success")
         }
 
@@ -520,11 +526,17 @@ class CameraActivity : BaseActivity()  , Mesibo.FileTransferListener , MediaPick
 
     override fun Mesibo_onFileTransferProgress(p0: Mesibo.FileInfo?): Boolean {
         Log.d(TAG, "Mesibo_onFileTransferProgress: $p0")
-         return true
+        return true
     }
 
-    override fun onImageEdit(p0: Int, p1: String?, p2: String?, p3: Bitmap?, p4: Int) {
 
+    override fun Mesibo_onStartFileTransfer(p0: Mesibo.FileInfo?): Boolean {
+        return true
+
+    }
+
+    override fun Mesibo_onStopFileTransfer(p0: Mesibo.FileInfo?): Boolean {
+        return true
     }
 
 }
